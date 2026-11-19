@@ -1,0 +1,2 @@
+model: {region_memory: {enabled: false, tokens_per_entity: 0}}
+experiment: {name: no_region_memory, claim: persistent_entity_memory}

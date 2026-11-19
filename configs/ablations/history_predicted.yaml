@@ -1,0 +1,2 @@
+train: {history_mode: predicted, history: {oracle_fraction: 0.0, detach_previous_masks: true}}
+experiment: {name: history_predicted, claim: exposure_to_predicted_history}

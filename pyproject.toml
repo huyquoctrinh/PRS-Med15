@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "prs-med15"
+version = "0.1.0"
+description = "Conversational 2D/3D medical grounding research package"
+requires-python = ">=3.10"
+dependencies = ["numpy", "scipy", "nibabel", "Pillow", "PyYAML", "ijson", "torch", "transformers", "safetensors", "peft"]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.scripts]
+prs-med15 = "prs_med15.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

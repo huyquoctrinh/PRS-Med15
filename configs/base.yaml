@@ -1,0 +1,16 @@
+runtime:
+  seed: 42
+  max_len: 4096
+  num_workers: 6
+  pin_memory: true
+  persistent_workers: true
+  prefetch_factor: 2
+data:
+  manifest: data/manifests/train.jsonl
+  processed_root: data/processed
+  image_size: 512
+  d_max: 32
+  target_depth_spacing_mm: null
+model: {}
+train: {}
+eval: {}

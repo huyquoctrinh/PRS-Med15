@@ -1,0 +1,2 @@
+model: {detail: {query_source: shuffled_current_question, K: 64}}
+experiment: {name: shuffled_question, claim: instruction_specificity}

@@ -1,0 +1,7 @@
+eval:
+  manifest: data/manifests/test.jsonl
+  checkpoint: artifacts/checkpoints/selected
+  history: predicted
+  slab_policy: sliding
+  metrics: [dice, iou, invalid_action_rate]
+  bootstrap_samples: 1000

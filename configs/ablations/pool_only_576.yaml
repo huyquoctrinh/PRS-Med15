@@ -1,0 +1,2 @@
+model: {global: {budget: 576}, detail: {K: 0}}
+experiment: {name: pool_only_576, claim: retrieval_vs_matched_pooling}

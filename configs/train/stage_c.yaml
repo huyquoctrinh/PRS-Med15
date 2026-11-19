@@ -1,0 +1,19 @@
+data: {manifest: data/manifests/train.jsonl, image_size: 512, d_max: 32}
+train:
+  stage: c
+  objective: multi_turn
+  epochs: 1
+  batch_size: 1
+  learning_rate: 0.00005
+  history: {oracle_fraction: 1.0, detach_previous_masks: true}
+  precision: bf16
+  max_steps: 5000
+  gradient_accumulation: 8
+  warmup_steps: 300
+  weight_decay: 0.01
+  encoder_learning_rate: 0.0
+  lora_learning_rate: 0.00005
+  delta_learning_rate: 0.00005
+  empty_target_policy: include
+  loss: {text: 1.0, mask: 1.0}
+  history_mode: mixed

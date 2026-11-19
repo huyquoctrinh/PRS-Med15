@@ -1,0 +1,19 @@
+sources:
+  dialogues_root: /data2/gdp2988/prs_med/prsmed_g/dialogues
+  mrmedseg_root: /data2/gdp2988/prs_med/external/MR-MedSeg/MR-MedSeg
+  raw:
+    amos: /data2/pky0507/dataset/amos22
+    totalseg: /data2/yaa3854/totalseg_full
+    totalseg_mr: /data/dbv4603/TotalsegmentatorMRI_dataset_v100
+    kits: /data2/gdp2988/3d_cot/dataset/kits23/dataset
+  split_root: /data2/gdp2988/prs_med/PRS-Med/data_processing/anatomy/results
+  splits:
+    amos: /data2/gdp2988/prs_med/PRS-Med/data_processing/anatomy/results/splits_amos.json
+    totalseg: /data2/gdp2988/prs_med/PRS-Med/data_processing/anatomy/results/splits_totalseg.json
+    totalseg_mr: /data2/gdp2988/prs_med/PRS-Med/data_processing/anatomy/results/splits_totalseg_mr.json
+    kits: /data2/gdp2988/prs_med/PRS-Med/data_processing/anatomy/results/splits_kits.json
+  facts:
+    amos: /data2/gdp2988/prs_med/PRS-Med/data_processing/anatomy/results/facts_amos.jsonl
+    totalseg: /data2/gdp2988/prs_med/PRS-Med/data_processing/anatomy/results/facts_totalseg.jsonl
+    totalseg_mr: /data2/gdp2988/prs_med/PRS-Med/data_processing/anatomy/results/facts_totalseg_mr.jsonl
+    kits: /data2/gdp2988/prs_med/PRS-Med/data_processing/anatomy/results/facts_kits.jsonl

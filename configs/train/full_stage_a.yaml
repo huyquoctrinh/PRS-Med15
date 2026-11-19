@@ -1,0 +1,50 @@
+runtime:
+  seed: 42
+  max_len: 4096
+  num_workers: 6
+  pin_memory: true
+  persistent_workers: true
+  prefetch_factor: 2
+data:
+  manifests:
+    - data/manifests/amos_train.jsonl
+    - data/manifests/totalseg_train.jsonl
+    - data/manifests/totalseg_mr_train.jsonl
+    - data/manifests/kits_train.jsonl
+    - data/manifests/mrmedseg_train.jsonl
+  val_manifests:
+    - data/manifests/totalseg_val.jsonl
+    - data/manifests/totalseg_mr_val.jsonl
+    - data/manifests/kits_val.jsonl
+    - data/manifests/mrmedseg_val.jsonl
+  processed_root: data/processed
+  image_size: 512
+  d_max: 32
+model: {}
+train:
+  stage: a
+  run_name: full_stage_a
+  objective: segmentation_warmup
+  results_root: /data2/gdp2988/prs_med/knowledge/experimental_results
+  checkpoint_dir: artifacts/runs/full_stage_a
+  batch_size: 1
+  balance_by_turns: true
+  learning_rate: 0.0002
+  lora_learning_rate: 0.0001
+  delta_learning_rate: 0.0001
+  encoder_learning_rate: 0.0
+  precision: bf16
+  decoder_precision: fp32
+  gradient_checkpointing: true
+  max_steps: 3000
+  gradient_accumulation: 4
+  warmup_steps: 200
+  scheduler: cosine
+  weight_decay: 0.01
+  gradient_clip_norm: 1.0
+  checkpoint_every: 1000
+  validate_every: 1000
+  val_sample_size: 200
+  empty_target_policy: include
+  loss: {text: 0.0, mask: 1.0}
+  history_mode: oracle

@@ -1,0 +1,2 @@
+model: {global: {budget: 896}, detail: {K: 128}}
+experiment: {name: budget_1024, total_visual_tokens: 1024}

@@ -1,0 +1,2 @@
+model: {detail: {query_source: learned_slots_only, K: 64}}
+experiment: {name: fixed_queries, claim: question_conditioning}

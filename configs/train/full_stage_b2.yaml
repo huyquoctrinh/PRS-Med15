@@ -1,0 +1,70 @@
+runtime:
+  seed: 42
+  max_len: 4096
+  num_workers: 6
+  pin_memory: true
+  persistent_workers: true
+  prefetch_factor: 2
+data:
+  manifests:
+    - data/manifests/amos_train.jsonl
+    - data/manifests/totalseg_train.jsonl
+    - data/manifests/totalseg_mr_train.jsonl
+    - data/manifests/kits_train.jsonl
+    - data/manifests/mrmedseg_train.jsonl
+  val_manifests:
+    - data/manifests/totalseg_val.jsonl
+    - data/manifests/totalseg_mr_val.jsonl
+    - data/manifests/kits_val.jsonl
+    - data/manifests/mrmedseg_val.jsonl
+  processed_root: data/processed
+  # Offline frozen-MedSAM features (scripts/extract_features.py); missing files fall back to online.
+  feature_root: data/features
+  image_size: 512
+  d_max: 32
+model:
+  encoder:
+    name: medsam_vit_b
+    hf_id: wanglab/medsam-vit-base
+    hf_cache: /data2/gdp2988/prs_med/hf_cache/hub
+    image_size: 512
+    freeze: true
+    slice_microbatch: 8
+  adapter: {layers: 2, heads: 8, alpha_init: 0.0}
+  global: {pool: [4, 4], budget: 512}
+  detail: {K: 64, d: 512, layers: 2}
+  llm:
+    path: /data2/fcq0219/models/llava_med
+    lora: {r: 16, alpha: 32, targets: [q_proj, k_proj, v_proj, o_proj]}
+    max_len: 4096
+  # B2: entity-conditioning fix (extra normalised prompt tokens + zero-init FiLM).
+  decoder: {dtype: fp32, extra_tokens: 6, film: true}
+train:
+  stage: b
+  run_name: full_stage_b2
+  objective: joint_dialogue_training
+  results_root: /data2/gdp2988/prs_med/knowledge/experimental_results
+  checkpoint_dir: artifacts/runs/full_stage_b2
+  batch_size: 1
+  balance_by_turns: true
+  # Pair same-bucket, similar-cost batches across ranks each micro-step.
+  match_rank_work: true
+  learning_rate: 0.0002
+  lora_learning_rate: 0.0001
+  delta_learning_rate: 0.0001
+  encoder_learning_rate: 0.0
+  precision: bf16
+  decoder_precision: fp32
+  gradient_checkpointing: true
+  max_steps: 20000
+  gradient_accumulation: 4
+  warmup_steps: 200
+  scheduler: cosine
+  weight_decay: 0.01
+  gradient_clip_norm: 1.0
+  checkpoint_every: 1000
+  validate_every: 1000
+  val_sample_size: 200
+  empty_target_policy: include
+  loss: {text: 1.0, mask: 1.0, negative: 1.0}
+  history_mode: oracle

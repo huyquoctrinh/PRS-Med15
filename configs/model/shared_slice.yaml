@@ -1,0 +1,16 @@
+model:
+  encoder:
+    name: medsam_vit_b
+    hf_id: wanglab/medsam-vit-base
+    hf_cache: /data2/gdp2988/prs_med/hf_cache/hub
+    image_size: 512
+    freeze: true
+    slice_microbatch: 8
+  adapter: {layers: 2, heads: 8, alpha_init: 0.0}
+  global: {pool: [4, 4], budget: 512}
+  detail: {K: 64, d: 512, layers: 2}
+  llm:
+    path: /data2/fcq0219/models/llava_med
+    lora: {r: 16, alpha: 32, targets: [q_proj, k_proj, v_proj, o_proj]}
+    max_len: 4096
+  decoder: {dtype: fp32}
